@@ -2,15 +2,15 @@
 %
 %  COE-835  Controle adaptativo
 %
-%  Script para simular exemplo 
+%  Script para simular o trabalho 8 
 %
 %  Backstepping  :  n  = 2     Second and third order plant
 %                   n* = 2     Relative degree
-%                   np = 4, 6     Adaptive parameters
-% Com observador completo
+%                   np = 3     Adaptive parameters
+% Com observador de ordem reduzida
 %----------------------------------------------------------------------
 
-global A a w thetas A0 c1 c2 d1 d2 Gamma gamma kp e1 k;
+global thetas N c1 c2 d1 d2 Gamma gamma kp a w;
 
 sim_str = strcat('');
 
@@ -21,8 +21,8 @@ P = P_1;
 
 thetas = thetas_1;
 
-k = k_1;
-A0 = A - k*e1';
+N = N_1;
+
 
 c1 = c1_1;
 c2 = c2_1;
@@ -43,7 +43,7 @@ eta0 = eta0_1;
 rho0 = rho0_1;
 init = [X0' theta0' lambda0' eta0' rho0]';
 
-[T_1,X_1] = ode23s('backstepping_obs',tfinal,init,'');
+[T_1,X_1] = ode23s('backstepping_red',tfinal,init,'');
 y_1      = X_1(:,1);
 theta_1 =  X_1(:,3:5);
 rho_1 = X_1(:,end);
@@ -64,15 +64,15 @@ P = P_1;
 
 thetas = thetas_1;
 
-k = k_1;
-A0 = A - k*e1';
+N = N_1;
+
 
 c1 = c1_1;
 c2 = c2_1;
 d1 = d1_1;
 d2 = d2_1;
 Gamma = Gamma_2*eye(3);
-gamma = gamma_1;
+gamma = gamma_2;
 
 % Reference
 a = a_1;
@@ -86,7 +86,7 @@ eta0 = eta0_1;
 rho0 = rho0_1;
 init = [X0' theta0' lambda0' eta0' rho0]';
 
-[T_2,X_2] = ode23s('backstepping_obs',tfinal,init,'');
+[T_2,X_2] = ode23s('backstepping_red',tfinal,init,'');
 y_2      = X_2(:,1);
 theta_2 =  X_2(:,3:5);
 rho_2 = X_2(:,end);
@@ -110,8 +110,8 @@ P = P_2;
 
 thetas = thetas_2;
 
-k = k_1;
-A0 = A - k*e1';
+N = N_1;
+
 
 c1 = c1_1;
 c2 = c2_1;
@@ -132,7 +132,7 @@ eta0 = eta0_1;
 rho0 = rho0_1;
 init = [X0' theta0' lambda0' eta0' rho0]';
 
-[T_2,X_2] = ode23s('backstepping_obs',tfinal,init,'');
+[T_2,X_2] = ode23s('backstepping_red',tfinal,init,'');
 y_2      = X_2(:,1);
 theta_2 =  X_2(:,3:5);
 rho_2 = X_2(:,end);
@@ -156,8 +156,8 @@ P = P_1;
 
 thetas = thetas_1;
 
-k = k_1;
-A0 = A - k*e1';
+N = N_1;
+
 
 c1 = c1_1;
 c2 = c2_1;
@@ -178,7 +178,7 @@ eta0 = eta0_1;
 rho0 = rho0_1;
 init = [X0' theta0' lambda0' eta0' rho0]';
 
-[T_2,X_2] = ode23s('backstepping_obs',tfinal,init,'');
+[T_2,X_2] = ode23s('backstepping_red',tfinal,init,'');
 y_2      = X_2(:,1);
 theta_2 =  X_2(:,3:5);
 rho_2 = X_2(:,end);
@@ -202,8 +202,8 @@ P = P_1;
 
 thetas = thetas_1;
 
-k = k_1;
-A0 = A - k*e1';
+N = N_1;
+
 
 c1 = c1_1;
 c2 = c2_1;
@@ -224,7 +224,7 @@ eta0 = eta0_2;
 rho0 = rho0_2;
 init = [X0' theta0' lambda0' eta0' rho0]';
 
-[T_2,X_2] = ode23s('backstepping_obs',tfinal,init,'');
+[T_2,X_2] = ode23s('backstepping_red',tfinal,init,'');
 y_2      = X_2(:,1);
 theta_2 =  X_2(:,3:5);
 rho_2 = X_2(:,end);

@@ -2,23 +2,23 @@
 %
 %  COE-835  Controle adaptativo
 %
-%  Script para simular o trabalho 7
+%  Script para simular o trabalho 8
 %
 %  Backstepping  :  n  = 2     Second and third order plant
 %                   n* = 2     Relative degree
 %                   np = 3     Adaptive parameters
-% Caso com observador completo
+% Caso com observador de ordem reduzida
 %----------------------------------------------------------------------
 
-function dx = backstepping_obs(t,x)
+function dx = backstepping_red(t,x)
 
-global A thetas A0 c1 c2 d1 d2 Gamma gamma kp a w e1 e2 k;
+global A thetas N c1 c2 d1 d2 Gamma gamma kp a w e1 e2;
 
 X           = x(1:2); y = e1'*X;
 theta       = x(3:5);
-lambda      = x(6:7);
-eta         = x(8:9);
-rho         = x(10);
+lambda      = x(6);
+eta         = x(7);
+rho         = x(8);
 
 %% Input
 yr = sum(a.*sin(w*t));
@@ -26,42 +26,41 @@ dyr = sum(a.*w.*cos(w*t));
 ddyr = sum(-a.*w.*w.*sin(w*t));
 
 %% Variables 1
-xi = -A0^2 * eta;
-Xi = -[A0*eta eta];
-v0_1 = lambda(1);
-v0_2 = lambda(2);
-omega_bar = [0, (Xi(2,:) - y*e1')]';
-omega = [v0_2, (Xi(2,:) - y*e1')]';
+xi = -N^2 * eta;
+Xi = -[N*eta eta];
+v0 = lambda(1);
+omega_bar = [0, (Xi - y*e1')]';
+omega = [v0, (Xi - y*e1')]';
 
 %% Z
 z1 = y - yr;
-alpha_bar = -c1*z1 - d1*z1 - xi(2) - omega_bar'*theta;
+alpha_bar = -c1*z1 - d1*z1 - xi - omega_bar'*theta + N*y;
 alpha_1 = rho * alpha_bar;
-z2 = v0_2 - rho*dyr - alpha_1;
+z2 = v0 - rho*dyr - alpha_1;
 
 %% Filtro eta
-deta = A0*eta + e2*y;
+deta = N*eta + y;
 
 %% dalpha/dt
-dady = rho * (- c1 - d1 + [0,e1']*theta);
-dadeta_deta = rho * (e2' * A0^2 * deta + [0,e2'*A0*deta, e2'*eye(2)*deta]*theta);
+dady = rho * (- c1 - d1 + [0,e1']*theta + N);
+dadeta_deta = rho * (N^2 * deta + [0, N*deta, deta]*theta);
 dadyr = rho*(c1 + d1);
 dadtheta = - rho * omega_bar';
-dadrho = -(c1 + d1)*z1 - e2'*xi - omega_bar'*theta;
+dadrho = -(c1 + d1)*(y - yr) - xi - omega_bar'*theta + N*y;
 
 %% Variables 2
 tau_1 = (omega - rho*(dyr + alpha_bar)*[e1',0]')*z1;
-tau_2 = tau_1 - z2 * (dady * omega);
+tau_2 = tau_1 - z2 * (dady * omega); 
 
-%% Atualizacao dos parametros
+%% Atualiza��o dos par�metros
 dtheta = Gamma * tau_2;
 drho = - gamma * z1 * sign(kp) * (dyr + alpha_bar);
-beta = k(2)*v0_1 + dady * (xi(2) + omega'*theta) + ...
+beta = -N*v0 + dady * (xi + omega'*theta - N*y) + ...
     dadeta_deta + dadyr * dyr + (dyr + dadrho) * drho;
-u = -c2*z2 + beta + rho*ddyr + dadtheta*dtheta - d2*z2*(dady)^2 - z1*theta(1);
+u = -c2*z2 + beta + rho*ddyr + dadtheta*dtheta - d2*z2*(dady)^2 - theta(1)*z1;
 
 %% Filtros
-dlambda = A0*lambda + e2*u;
+dlambda = N*lambda + u;
 
 %% Planta
 Phi = [-y 0;0 -y];
@@ -69,4 +68,4 @@ F = [e2*u Phi];
 dX = A*X + F*thetas;
 
 %% Translation
-dx = [dX' dtheta' dlambda' deta' drho]';
+dx = [dX' dtheta' dlambda' deta' drho]';    

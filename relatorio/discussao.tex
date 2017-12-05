@@ -1,6 +1,8 @@
 %---------------------------------------------------------------------
 \section{Discussão}
 
+As conclusões deste trabalho são bastante semelhantes ao Trabalho 7, que trata do método Backstepping para observador de ordem completa. Iremos repetir aqui a mesma discussão encontrada no relatório do trabalho 7 por conveniência e então faremos um breve comparativo entre o desempenho dos observadores.
+
 A \textbf{simulação \#1} mostra o comportamento do sistema para variações nas
 condições iniciais. A rapidez da convergência depende de quão próximo os parâmetros estimados estão dos parâmetros reais. A simulação mostrou um comportamento semelhante para ambos os casos. Quando deslocamos o $y(0)$, os sistemas também
 apresentam comportamento semelhante, pois a variável de controle $u$ é alterada
@@ -16,3 +18,5 @@ Na \textbf{simulação \#3}, foram testadas duas referências $y_r$ distintas, que 
 Finalmente, a \textbf{simulação \#4} mostra o comportamento do sistema para variações no
 ganho de adaptação $\Gamma$. Podemos verificar convergência mais rápida quando o
 $\Gamma$ é maior, porém também observamos maiores oscilações e picos de erro.
+
+Como utilizamos os mesmos parâmetros entre as simulações do Backstepping com observador de ordem completa e de ordem reduzida, podemos comparar o desempenho dos dois observadores. No geral, nota-se um desempenho superior do observador de ordem completa: menor amplitude de oscilações residuais, tempo de convergência menor e picos de transitório menores. No entanto, o esforço computacional do observador completo é maior que o observador de ordem reduzida.

@@ -23,13 +23,13 @@ Z_1 = [1];
 P_1 = [1 2 1];
 thetas_1 = [kp_1 P_1(2) P_1(3)]';
 
-k_1 = [1 1]';
+N_1 = -1;
 
 %Initial conditions
 X0_1  = [0 0]';
 theta0_1 = [0 0 0]';
-lambda0_1 = [0 0]';
-eta0_1 = [0 0]';
+lambda0_1 = [0]';
+eta0_1 = [0]';
 rho0_1 = 1;
 
 %Adaptation gain
@@ -51,13 +51,13 @@ Z_2 = [1];
 P_2 = [1 -2 1];
 thetas_2 = [kp_2 P_2(2) P_2(3)]';
 
-k_2 = [1 1]';
+N_2 = -1;
 
 %Initial conditions
 X0_2  = [10 0]';
 theta0_2 = [0 0 0]';
-lambda0_2 = [0 0]';
-eta0_2 = [0 0]';
+lambda0_2 = [0]';
+eta0_2 = [0]';
 rho0_2 = 1;
 
 %Adaptation gain
