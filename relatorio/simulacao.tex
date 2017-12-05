@@ -1,0 +1,155 @@
+%---------------------------------------------------------------------
+\section{Resultados das simulações}
+
+Nas simulações, procuramos avaliar o comportamento do sistema para as seguintes condições:
+%
+\begin{enumerate*}[label=(\roman*)]
+\item condição inicial $y(0)$;
+\item parâmetros da planta;
+\item sinal de referência;
+\item ganho de adaptação $\Gamma$.
+\end{enumerate*}
+
+Apresentaremos os resultados obtidos através de simulações no ambiente \HI{\texttt{Matlab/Simulink}} e os discutiremos na próxima seção.
+%
+Para todas as simulações, utilizamos $k^\intercal = \mat{1 & 1}$, $c_1 = c_2 = d_1 = d_2 = \gamma = 1$ e condições iniciais nulas em todas as dinâmicas, exceto em $\rho(0) = 1$ e $y(0)$.
+
+\subsection{Simulação \#1}
+
+Inicialmente, desejamos verificar o comportamento do sistema para variações nas
+condições iniciais.
+
+%
+\begin{align*}
+  y &= \frac{5}{s^2+2s+1}u\,,  &  y(0) &= \HI{0} \, \textrm{e} \, \HI{10}\,,
+  & \Gamma &= 1 \, \textbf{I}_3\,, & y_r &= \textrm{sin}(t) +
+  \textrm{sin}(3t) \, .
+\end{align*}
+%
+\begin{figure}[H]
+  \centering
+  \includegraphics[width=12cm]{figs/e0/y01y02.eps} 
+\end{figure}
+
+\begin{figure}[H]
+  \centering
+  \includegraphics[width=12cm]{figs/tiltheta/y01y02.eps} 
+\end{figure}
+
+\begin{figure}[H]
+  \centering
+  \includegraphics[width=12cm]{figs/modtheta/y01y02.eps} 
+\end{figure}
+
+\begin{figure}[H]
+  \centering
+  \includegraphics[width=12cm]{figs/y/y01y02.eps} 
+\end{figure}
+
+\begin{figure}[H]
+  \centering
+  \includegraphics[width=12cm]{figs/rho/y01y02.eps} 
+\end{figure}
+
+\subsection{Simulação \#2}
+
+Verificamos o comportamento do sistema para variações nos parâmetros da planta.
+
+\begin{align*}
+  y &= \HI{$\frac{5}{s^2+2s+1}u$} \,\,\, \textrm{e} \,\,\, \HI{$\frac{2}{s^2-2s+1}u$} \,,  &   y(0) &=  0 \,, & \Gamma &= 1 \,
+  \textbf{I}_3\,, & y_r &= \textrm{sin}(t) + \textrm{sin}(3t) \, .
+\end{align*}
+
+\begin{figure}[H]
+  \centering
+  \includegraphics[width=12cm]{figs/e0/P1P2.eps} 
+\end{figure}
+
+\begin{figure}[H]
+  \centering
+  \includegraphics[width=12cm]{figs/tiltheta/P1P2.eps} 
+\end{figure}
+
+\begin{figure}[H]
+  \centering
+  \includegraphics[width=12cm]{figs/modtheta/P1P2.eps} 
+\end{figure}
+
+\begin{figure}[H]
+  \centering
+  \includegraphics[width=12cm]{figs/y/P1P2.eps} 
+\end{figure}
+
+\begin{figure}[H]
+  \centering
+  \includegraphics[width=12cm]{figs/rho/P1P2.eps} 
+\end{figure}
+
+
+\subsection{Simulação \#3}
+
+Verificamos o comportamento do sistema para variações no sinal de referência $y_r(t)$.
+
+\begin{align*}
+  y &= \frac{5}{s^2+2s+1}u\,,  & y(0) &=  0 \,, & \Gamma &= 1 \,
+  \textbf{I}_3\,, & y_r &= \HI{$\textrm{sin}(t) + \textrm{sin}(3t)$} \,\, \textrm{e} \,\,
+  \HI{$\textrm{sin}(t) + \textrm{2sin}(5t)$} \,.
+\end{align*}
+
+\begin{figure}[H] 
+  \centering
+  \includegraphics[width=12cm]{figs/e0/yr1yr2.eps} 
+\end{figure}
+
+\begin{figure}[H]
+  \centering
+  \includegraphics[width=12cm]{figs/tiltheta/yr1yr2.eps} 
+\end{figure}
+
+\begin{figure}[H]
+  \centering
+  \includegraphics[width=12cm]{figs/modtheta/yr1yr2.eps} 
+\end{figure}
+
+\begin{figure}[H]
+  \centering
+  \includegraphics[width=12cm]{figs/y/yr1yr2.eps} 
+\end{figure}
+
+\begin{figure}[H]
+  \centering
+  \includegraphics[width=12cm]{figs/rho/yr1yr2.eps} 
+\end{figure}
+
+\subsection{Simulação \#4}
+
+Verificamos o comportamento do sistema para variações no ganho de adaptação $\Gamma$.
+
+\begin{align*}
+  y &= \frac{5}{s^2+2s+1}u\,,  & y(0) &=  0 \,, & \Gamma &= \HI{$1 \textbf{I}_3$} \,\, \textrm{e} \,\, \HI{$10 \textbf{I}_3$}\,, & y_r &= \textrm{sin}(t) + \textrm{sin}(3t) \,.
+\end{align*}
+
+\begin{figure}[H] 
+  \centering
+  \includegraphics[width=12cm]{figs/e0/Gamma1Gamma10.eps} 
+\end{figure}
+
+\begin{figure}[H]
+  \centering
+  \includegraphics[width=12cm]{figs/tiltheta/Gamma1Gamma10.eps} 
+\end{figure}
+
+\begin{figure}[H]
+  \centering
+  \includegraphics[width=12cm]{figs/modtheta/Gamma1Gamma10.eps} 
+\end{figure}
+
+\begin{figure}[H]
+  \centering
+  \includegraphics[width=12cm]{figs/y/Gamma1Gamma10.eps} 
+\end{figure}
+
+\begin{figure}[H]
+  \centering
+  \includegraphics[width=12cm]{figs/rho/Gamma1Gamma10.eps} 
+\end{figure}

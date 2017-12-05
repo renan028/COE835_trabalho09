@@ -1,0 +1,18 @@
+%---------------------------------------------------------------------
+\section{Discussão}
+
+A \textbf{simulação \#1} mostra o comportamento do sistema para variações nas
+condições iniciais. A rapidez da convergência depende de quão próximo os parâmetros estimados estão dos parâmetros reais. A simulação mostrou um comportamento semelhante para ambos os casos. Quando deslocamos o $y(0)$, os sistemas também
+apresentam comportamento semelhante, pois a variável de controle $u$ é alterada
+e não apresenta saturação, compensando a condição inicial.
+
+A \textbf{simulação \#2} mostra o comportamento do sistema para variações na
+planta. Escolhemos plantas instáveis e estáveis. Podemos observar que, em ambos
+os casos, o sinal de controle foi capaz de corrigir o erro, sem muitas
+dificuldades. O comportamento dos sistemas é semelhante e para a planta 2, houve até convergência dos parâmetros $\theta$.
+
+Na \textbf{simulação \#3}, foram testadas duas referências $y_r$ distintas, que também podem ser entendidas como a resposta de um modelo de referência $P_m(s)$ a uma referência $r(t)$. A alteração no sinal de referência mostrou que sinais mais complexos, com frequências mais altas e maiores amplitudes, demoram um pouco mais para convergir.
+
+Finalmente, a \textbf{simulação \#4} mostra o comportamento do sistema para variações no
+ganho de adaptação $\Gamma$. Podemos verificar convergência mais rápida quando o
+$\Gamma$ é maior, porém também observamos maiores oscilações e picos de erro.
