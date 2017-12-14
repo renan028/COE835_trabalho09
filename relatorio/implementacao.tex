@@ -1,28 +1,5 @@
 \section{Implementação}
 
-Para a implementação, só é preciso computar os filtros:
-%
-\begin{align}
-\dot{\lambda} &= N\lambda + u \\
-\dot{\eta} &= N\eta + y
-\end{align}
-
-Temos ainda que $\alpha =
-\hat{\rho}(-c_1z_1-d_1z_1-\xi-\bar{\omega}^\intercal\hat{\theta} + Ny)$. Logo:
-\begin{align}
-\frac{\partial \alpha_1}{\partial y} &= -\hat{\rho}(c_1 + d_1 +
-\mat{0 & -e_1^\intercal}\hat{\theta} - N)\\
-%
-\frac{\partial \alpha_1}{\partial \eta} &=
-\hat{\rho}\left(N^2 +
-\mat{0 & N & 1}\hat{\theta}\right) \\
-%
-\frac{\partial \alpha_1}{\partial y_r} &= \hat{\rho}(c_1 + d_1)\\
-\frac{\partial \alpha_1}{\partial \hat{\theta}} &= - \hat{\rho}\bar{\omega}^\intercal \\
-\frac{\partial \alpha_1}{\partial \hat{\rho}} &= -(c_1+d_1)(y-y_r) +
-N^2\eta -\bar{\omega}^\intercal \hat{\theta} + Ny
-\end{align}
-
-Transcrevemos abaixo a função que computa o Backstepping com observador de ordem reduzida:
+Transcrevemos abaixo a função que computa o Backstepping com observador de ordem reduzida para a forma direta, ou seja, com o vetor $\theta$ contendo os parâmetros de controle:
 
 \lstinputlisting[style=myMatlab]{../matlab/backstepping_red.m} 

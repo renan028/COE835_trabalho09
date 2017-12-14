@@ -1,0 +1,76 @@
+%---------------------------------------------------------------------
+\section{Resumo das equações}
+
+Abaixo, resumimos algumas das principais equações utilizadas no método.
+
+\vspace{5mm}
+
+\noindent
+
+\equacao{Planta}
+  {P(s) = \frac{Y(s)}{U(s)} = \frac{k_p}{s^2 + a_{1} s + a_{0}}}
+
+\equacao{Modelo}
+  {P_m(s) = \frac{Y_m(s)}{R(s)} = \frac{k_m}{s^2 + a_{m_1} s + a_{m_0}}}
+
+\equacao{Realização do erros}
+  {\begin{cases}
+    \dot{\epsilon}_1 &= -a_{m_1} \epsilon_1 + \epsilon_2 \\
+    \dot{\epsilon}_2 &= -a_{m_0} \epsilon_1 - k_m r + k_m F^T \Psi \\
+    z_1 &= e_0 = y - y_m = \epsilon_1
+   \end{cases}
+}
+
+\equacao{Filtros}
+{
+\begin{cases}
+\dot{\xi} &= N\xi - (a_{m_0} + a_{m_1}N + N^2)e_0 - k_m r\\
+\dot{\Omega}^T &= N\Omega^T + k_m F^T\\
+\end{cases}
+}
+
+\equacao{Regressores}
+  {\Omega^T = \mat{v_0 & \Xi^T}\,, \qquad \bar{\Omega}^T = \mat{0 & \Xi^T} \,, \qquad \Xi^T = \mat{v_1 & v_2 & v_3}}
+  
+\equacao{Função estabilizante}
+  { \bar{\alpha} = -c_1 z_1 + \frac{d_1}{N}z_1 + (a_{m_1} + N) z_1 - \xi - \bar{\Omega}^T \hat{\Psi} \,, \qquad \alpha = \hat{\rho} \bar{\alpha}}
+
+\equacao{Adaptação}
+  { \dot{\hat{\rho}} &= -\gamma \text{sign}(k)\bar{\alpha} z_1 \,, \qquad k = k_p/k_m}
+
+\equacao{Função de sintonia 1}
+  { \tau_1 &= (\Omega - \hat{\rho} \bar{\alpha} e_1)z_1 }
+    
+\equacao{Erro $z_2$}
+{z_2 = v_0 - \alpha}
+
+\equacao{Sinal auxiliar}
+{\beta = -Nv_0 + \frac{\partial\alpha}{\partial z_1} \left(\xi + \Omega^T \hat{\Psi} - a_{m_1} z_1 -Nz_1 \right) + \frac{\partial\alpha}{\partial \hat{\rho}} \dot{\hat{\rho}} + \frac{\partial\alpha}{\partial \xi}\left(N\xi -cz_1 -k_mr \right) + \frac{\partial\alpha}{\partial \bar{\Omega}} \left(N\bar{\Omega} + k_m \mat{0 & -\omega_r^T}^T \right)}
+
+\equacao{Derivadas parciais de $\alpha$}
+{
+\begin{cases}
+ \partial\alpha/\partial z_1 &= \hat{\rho}\left(-c_1 +\frac{d_1}{N} +a_{m_1} +N\right) \\
+\partial\alpha/\partial \hat{\rho} &= \bar{\alpha} \\
+\partial\alpha/\partial \xi &= -\hat{\rho} \\
+\partial\alpha/\partial \hat{\Psi} &= -\hat{\rho}\bar{\Omega}^T \\
+\partial\alpha/\partial \bar{\Omega} &= -\hat{\rho}\hat{\Psi}^T
+\end{cases}
+}
+
+\equacao{Função de sintonia 2}
+  { \tau_2 = \tau_1 - \frac{\partial\alpha}{\partial z_1} \Omega z_2 }
+
+\equacao{Adaptação}
+  { \dot{\hat{\Psi}} &= \Gamma \tau_2}
+  
+\equacao{Sinal de controle}
+  { u = \frac{1}{k_m}\left(-c_2z_2 - \hat{k}z_1 + \beta + \frac{\partial\alpha}{\partial \hat{\Psi}} \dot{\hat{\Psi}} + \frac{d_2}{N}\left(\frac{\partial\alpha}{\partial z_1}\right)^2z_2\right)}
+  
+\textbf{Hipóteses:}
+%
+\begin{enumerate}
+ \item O sinal do ganho de alta frequência da planta, $k_p$, é conhecido;
+ \item O sinal de referência $r(t)$ é limitado.
+\end{enumerate}
+

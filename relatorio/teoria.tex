@@ -166,7 +166,7 @@ No algoritmo de backstepping, a ideia é, a partir da equação \eqref{eq:erro3}, p
 Usando a dinâmica de $z_1$ e incluindo o termo $k z_2$, temos:
 %
 \begin{align}
- \dot{e}_0 &= -(a_{m_1} + N) z_1 + k v_0 + \xi + \bar{\Omega}^T \Psi + \varepsilon + (kz_2 - kz_2) \nonumber \\
+ \dot{z}_1 &= -(a_{m_1} + N) z_1 + k v_0 + \xi + \bar{\Omega}^T \Psi + \varepsilon + (kz_2 - kz_2) \nonumber \\
  &= k \alpha + kz_2 -(a_{m_1} + N) z_1 + \xi + \bar{\Omega}^T \Psi + \varepsilon
  \label{eq:e0}
 \end{align}
@@ -174,7 +174,7 @@ Usando a dinâmica de $z_1$ e incluindo o termo $k z_2$, temos:
 Definindo a função estabilizante $\alpha = \hat{\rho} \bar{\alpha}$, onde $\rho = 1/k$, $\hat{\rho} = 1/\hat{k}$ e $\tilde{\rho} = \rho - \hat{\rho}$, é possível reescrever \eqref{eq:e0} como:
 %
 \begin{equation*}
- \dot{e}_0 = \bar{\alpha} - k\tilde{\rho}\bar{\alpha} + kz_2 -(a_{m_1} + N) z_1 + \xi + \bar{\Omega}^T \Psi + \varepsilon
+ \dot{z}_1 = \bar{\alpha} - k\tilde{\rho}\bar{\alpha} + kz_2 -(a_{m_1} + N) z_1 + \xi + \bar{\Omega}^T \Psi + \varepsilon
 \end{equation*}
 
 Escolhendo a primeira função estabilizante $\bar{\alpha}$ como:
@@ -186,7 +186,7 @@ Escolhendo a primeira função estabilizante $\bar{\alpha}$ como:
 onde $c_1$ e $d_1$ são constantes positivas. Definindo $\tilde{\Psi} = \Psi - \hat{\Psi}$ temos:
 %
 \begin{equation*}
- \dot{e}_0 = -c_1 z_1 + \frac{d_1}{N}z_1 - k\tilde{\rho}\bar{\alpha} + \bar{\Omega}^T \tilde{\Psi}  + kz_2 + \varepsilon
+ \dot{z}_1 = -c_1 z_1 + \frac{d_1}{N}z_1 - k\tilde{\rho}\bar{\alpha} + \bar{\Omega}^T \tilde{\Psi}  + kz_2 + \varepsilon
 \end{equation*}
 
 Notando que o termo $\bar{\Omega}^T \tilde{\Psi}  + kz_2$ pode ser reescrito como
@@ -197,7 +197,7 @@ $
 temos:
 %
 \begin{equation}
- \dot{e}_0 = -c_1 z_1 + \frac{d_1}{N}z_1 + [\Omega - \hat{\rho} \bar{\alpha} e_1]^T \tilde{\Psi} - k\tilde{\rho}\bar{\alpha} + \hat{k}z_2 + \varepsilon
+ \dot{z}_1 = -c_1 z_1 + \frac{d_1}{N}z_1 + [\Omega - \hat{\rho} \bar{\alpha} e_1]^T \tilde{\Psi} - k\tilde{\rho}\bar{\alpha} + \hat{k}z_2 + \varepsilon
 \end{equation}
 
 Agora, escolhemos a primeira função de Lyapunov:
@@ -227,48 +227,76 @@ Deixando ainda em aberto a lei de adaptação para $\Psi$, mas já utilizando \eqre
  \dot{V_1} \leq -c_1 z_1^2 + \hat{k}z_1z_2 + \tilde{\Psi}^T \left(\tau_1 - \Gamma^{-1} \dot{\hat{\Psi}} \right)
 \end{equation}
 
+Agora, analisando a dinâmica de $z_2$, temos que:
+%
+\begin{align}
+ \dot{z}_2 &= \dot{v}_0 - \dot{\alpha}\nonumber \\
+\label{eq:dotz2}
+ &= Nv_0 + k_m u - \dot{\alpha} 
+\end{align}
 
-% Escolhe-se a função de Lyapunov:
-% %
-% \begin{align}
-% 2V_1 = z_1^2 +
-% \tilde{\theta}^T\Gamma^{-1}\tilde{\theta}+|k_p|\gamma^{-1}\tilde{\rho}^2
-% + \frac{1}{2d_1}\epsilon^T P\epsilon
-% \end{align}
-% 
-% Nessas condições, é possível escolher a atualização de $\hat{\rho}$ segundo:
-% %
-% \begin{align}
-% \dot{\hat{\rho}} &= -\gamma z_1 \text{sign}(k_p)(\dot{y}_r + \bar{\alpha}_1)
-% \end{align}
-% 
-% Derivando $z_2$, obtemos:
-% %
-% \begin{align}
-% \dot{z}_2 &= \dot{v}_0 - \hat{\rho}\ddot{y}_r - \dot{\hat{\rho}}\dot{y}_r -
-% \dot{\alpha}_1 \\
-% &= u - \hat{\rho}\ddot{y}_r - \beta -
-% \frac{\partial\alpha_1}{\partial y}(\omega^T\tilde{\theta} + \epsilon)
-% - \frac{\partial\alpha_1}{\partial\hat{\theta}}\dot{\hat{\theta}} \\
-% \beta &= \HI{$-Nv_0$} + \frac{\partial\alpha_1}{\partial y}(\xi +
-% \omega^T\hat{\theta} - Ny) + \frac{\partial \alpha_1}{\partial \eta}
-% (N\eta + y) + \frac{\partial \alpha_1}{\partial y_r} \dot{y}_r +
-% (\dot{y}_r + \frac{\partial \alpha_1}{\partial \hat{\rho}})\dot{\hat{\rho}}
-% \end{align}
-% 
-% Escolhe-se a função de Lyapunov:
-% %
-% \begin{align}
-% V_2 = V_1 + \frac{1}{2}z_2^2 + \frac{1}{4d_2}\epsilon^T P\epsilon
-% \end{align}
-% 
-% É possível mostrar que a atualização de parâmetros e a lei de controle são:
-% %
-% \begin{align}
-% \dot{\hat{\rho}} &= -\gamma z_1 \text{sign}(k_p)(\dot{y}_r + \bar{\alpha}_1) \\
-% \tau_1 &= (\omega - \hat{\rho}(\dot{y}_r + \bar{\alpha}_1)\mat{e_1^T & 0}^T)z_1 \\
-% \tau_2 &= \tau_1 - z_2 \frac{\partial \alpha_1}{\partial y} \omega \\
-% \dot{\hat{\theta}} &= \Gamma\tau_2 \\
-% u &= -c_2z_2 + \beta + \hat{\rho}\ddot{y}_r + \frac{\partial \alpha_1}{\partial
-% \hat{\theta}} \Gamma \tau_2 - d_2z_2\left( \frac{\partial \alpha_1}{\partial y}\right)^2 - \hat{k}_pz_1
-% \end{align}
+Notando que $\alpha(z_1, \hat{\rho}, \xi, \hat{\Psi}, \bar{\Omega})$, podemos escrever sua derivada temporal como:
+%
+\begin{align*}
+\dot{\alpha} &= \frac{\partial\alpha}{\partial z_1}\dot{z}_1 + \frac{\partial\alpha}{\partial \hat{\rho}}\dot{\hat{\rho}} + \frac{\partial\alpha}{\partial \xi}\dot{\xi} + \frac{\partial\alpha}{\partial \hat{\Psi}}\dot{\hat{\Psi}} + \frac{\partial\alpha}{\partial \bar{\Omega}}\dot{\bar{\Omega}} \\
+%
+&= \frac{\partial\alpha}{\partial z_1}\left( \xi + \Omega^T \Psi + \varepsilon - a_{m_1} z_1 -Nz_1  \right) + \frac{\partial\alpha}{\partial \hat{\rho}}\dot{\hat{\rho}} + \frac{\partial\alpha}{\partial \xi}\left( N\xi -cz_1 -k_m r \right) + \frac{\partial\alpha}{\partial \hat{\Psi}}\dot{\hat{\Psi}} + \frac{\partial\alpha}{\partial \bar{\Omega}}\left(N\bar{\Omega} + k_m \mat{0 & -\omega_r^T}^T \right) \,,
+\end{align*}
+%
+sendo que:
+%
+\begin{align}
+\frac{\partial\alpha}{\partial z_1} &= \hat{\rho}\left(-c_1 +\frac{d_1}{N} +a_{m_1} +N\right) \\
+\frac{\partial\alpha}{\partial \hat{\rho}} &= \bar{\alpha} \\
+\frac{\partial\alpha}{\partial \xi} &= -\hat{\rho} \\
+\frac{\partial\alpha}{\partial \hat{\Psi}} &= -\hat{\rho}\bar{\Omega}^T \\
+\frac{\partial\alpha}{\partial \bar{\Omega}} &= -\hat{\rho}\hat{\Psi}^T
+\end{align}
+
+Reescrevemos então \eqref{eq:dotz2} como a seguinte expressão, onde $\beta$ possui somente sinais disponíveis:
+%
+\begin{gather*}
+ \dot{z}_2 = k_m u - \frac{\partial\alpha}{\partial z_1} \left(\Omega^T \tilde{\Psi} + \varepsilon \right) - \frac{\partial\alpha}{\partial \hat{\Psi}} \dot{\hat{\Psi}} - \beta \\
+ %
+ \boxed{
+ \beta = -Nv_0 + \frac{\partial\alpha}{\partial z_1} \left(\xi + \Omega^T \hat{\Psi} - a_{m_1} z_1 -Nz_1 \right) + \frac{\partial\alpha}{\partial \hat{\rho}} \dot{\hat{\rho}} + \frac{\partial\alpha}{\partial \xi}\left(N\xi -cz_1 -k_mr \right) + \frac{\partial\alpha}{\partial \bar{\Omega}} \left(N\bar{\Omega} + k_m \mat{0 & -\omega_r^T}^T \right)
+ }\,,
+\end{gather*}
+%
+
+Podemos agora incluir o estado $z_2$ na função de Lyapunov anterior por:
+%
+$$
+V_2 = V_1 + \frac{1}{2}z_2^2 + \frac{1}{8d_2}\varepsilon^2
+$$
+
+Derivando $V_2$, obtém-se:
+%
+\begin{align}
+\dot{V}_2 &\leq -c_1z_1^2 + \hat{k}z_1z_2 + \tilde{\Psi}^T \left(\tau_1 - \Gamma^{-1} \dot{\hat{\Psi}} \right) + z_2 \left(k_m u - \beta - \frac{\partial\alpha}{\partial z_1}(\Omega^T\tilde{\Psi} + \varepsilon) - \frac{\partial\alpha}{\partial \hat{\Psi}} \dot{\hat{\Psi}}\right) + \frac{1}{4d_2}N\varepsilon^2 \nonumber \\
+%
+&\leq -c_1z_1^2 + \tilde{\Psi}^T\left(\tau_1 - \Gamma^{-1}\dot{\hat{\Psi}} - \frac{\partial\alpha}{\partial z_1} \Omega z_2\right) + z_2 \left(k_m u + \hat{k}z_1 - \beta - \frac{\partial\alpha}{\partial \hat{\Psi}} \dot{\hat{\Psi}} - \frac{d_2}{N}z_2\left(\frac{\partial\alpha}{\partial z_1}\right)^2 \right)
+%
+\label{eq:dotV2}
+\end{align}
+
+Agora, para eliminar o termo $\tilde{\Psi}$, escolhemos a segunda função de sintonia:
+%
+\begin{gather}
+\boxed{
+ \dot{\hat{\Psi}} = \Gamma \tau_2} \,, \\[10pt]
+ %
+ \boxed{
+ \tau_2 = \tau_1 - \frac{\partial\alpha}{\partial z_1} \Omega z_2
+ }
+\end{gather}
+
+Com \eqref{eq:dotV2}, também podemos escolher a seguinte lei de controle:
+%
+\begin{equation}
+\boxed{
+ u = \frac{1}{k_m}\left(-c_2z_2 - \hat{k}z_1 + \beta + \frac{\partial\alpha}{\partial \hat{\Psi}} \dot{\hat{\Psi}} + \frac{d_2}{N}\left(\frac{\partial\alpha}{\partial z_1}\right)^2z_2\right)
+ }\,,
+\end{equation}
+%
+de modo que $V_2 \leq -c_1z_1^2 -c_2z_2^2$ seja negativa semi-definida.
