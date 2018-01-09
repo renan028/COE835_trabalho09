@@ -55,7 +55,7 @@ Observando que $k {\theta}^T = \mat{k {\theta}_1 & k {\theta}_2 & k {\theta}_3 &
 }
 \end{equation}
 %
-onde $F^T(u,y) = \mat{u & -\omega_r} \in \mathbb{R}^{1 \times 4}$, ${\Psi}^T = \mat{k & \psi_1 & \psi_2 & \psi_3}$, $\omega_1 = u/\Lambda(s)$ e $\omega_2 = y/\Lambda(s)$. O polinômio $\Lambda(s)$ é encontrado através de $N_m A_0$, onde $N_m$ é o numerador de $M(s)$ e $A_0(s)$ é escolhido, e consiste no polinômio do observador. 
+onde $F^T(u,y) = \mat{u & -\omega_r^T} \in \mathbb{R}^{1 \times 4}$, ${\Psi}^T = \mat{k & \psi_1 & \psi_2 & \psi_3}$, $\omega_1 = u/\Lambda(s)$ e $\omega_2 = y/\Lambda(s)$. O polinômio $\Lambda(s)$ é encontrado através de $N_m A_0$, onde $N_m = k_m$ é o numerador de $M(s)$ e $A_0(s)$ é escolhido, e consiste no polinômio do observador. 
 
 \section{Observador de ordem reduzida}
 
@@ -71,7 +71,7 @@ onde $\chi \in \mathbb{R}$ e $N < 0, N  \in \mathbb{R}$.
 Derivando, obtemos:
 %
 \begin{align}
-\label{eq:chi}
+\label{eq:dotchi}
 \dot{\chi} &= (-a_{m_0}e_0 - k_m r + k_m F^T \Psi) + N(\epsilon_2 - a_{m_1}e_0) \\
 \nonumber &= N\chi - c e_0 - k_m r + k_m F^T \Psi \,,
 \end{align}
@@ -101,7 +101,7 @@ e pode-se mostrar que sua dinâmica é dada por:
  \dot{\hat{\chi}} = N \hat{\chi} - ce_0 -k_m r + k_m F^T \Psi \,,
 \end{equation}
 %
-que corresponde à mesma dinâmica da equação \eqref{eq:chi}. Porém, esse estimador não pode ser implementado porque não temos conhecimento sobre $\Psi$. Então, define-se um erro de estima:
+que corresponde à mesma dinâmica da equação \eqref{eq:dotchi}. Porém, esse estimador não pode ser implementado porque não temos conhecimento sobre $\Psi$. Então, define-se um erro de estima:
 %
 \begin{align}
  \varepsilon &= \chi - \hat{\chi} \\
@@ -125,7 +125,7 @@ Agora, usando \eqref{eq:Omega} em \eqref{eq:filtros3}, obtemos:
 %
 \begin{align}
  \dot{v}_0 &= Nv_0 + k_m u \\
- \dot{\Xi}^T &= N\Xi^T - k_m \omega_r
+ \dot{\Xi}^T &= N\Xi^T - k_m \omega_r^T
 \end{align}
 
 A dinâmica do erro de saída $e_0$, definida em \eqref{eq:erro2}, pode ser reescrita como:
