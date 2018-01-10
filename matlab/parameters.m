@@ -20,18 +20,18 @@ A0 = s + 1;
 %% First parameters
 
 %Plant
-kp_1 = 2;
-a1_1 = 2;
-a0_1 = 1;
+kp_1 = 1;
+a1_1 = 5.5;
+a0_1 = 2.5;
 
 %Model
-km_1  = 1;
-am1_1 = 4;
-am0_1 = 4;
+km_1  = 2;
+am1_1 = 3;
+am0_1 = 2;
 
 %Reference
-a_1 = [1 1];
-w_1 = [1 3];
+a_1 = [2 2];
+w_1 = [1 2];
 
 %Initial conditions
 X0_1  = [0 0]';
@@ -45,8 +45,8 @@ rho0_1 = 1;
 
 %Adaptation gain and filter ctes
 N_1 = -1;
-Gamma_1 = 1;
-gamma_1 = 1;
+Gamma_1 = 10;
+gamma_1 = 0.2;
 c1_1 = 1;
 c2_1 = 1;
 d1_1 = 1;
@@ -55,12 +55,12 @@ d2_1 = 1;
 %% Second parameters
 
 %Plant
-kp_2 = 2;
+kp_2 = 1;
 a1_2 = 2;
 a0_2 = 1;
 
 %Model
-km_2  = 1;
+km_2  = 2;
 am1_2 = 4;
 am0_2 = 4;
 
@@ -69,7 +69,7 @@ a_2 = [1 1];
 w_2 = [1 3];
 
 %Initial conditions
-X0_2  = [0 0]';
+X0_2  = [10 10]';
 X0m_2  = [0 0]';
 w10_2 = 0;
 w20_2 = 0;

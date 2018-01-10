@@ -10,7 +10,7 @@
 % Com observador de ordem reduzida
 %----------------------------------------------------------------------
 
-global km am1 am0 N c1 c2 d1 d2 Gamma gamma kp a1 a0 a w Auf Buf Ayf Byf e1;
+global km am1 am0 N c1 c2 d1 d2 Gamma gamma kp a1 a0 a w Af Bf;
 
 sim_str = strcat('');
 
@@ -32,15 +32,10 @@ Pm = tf(km,[1 am1 am0]);
 [t1, tn, t2, t2n, L] = find2DOFparameters(P,Pm,A0);
 Psis_1 = 1/t2n*[1 t1 tn t2];
 
-% u filter
-ss_uf = canon(ss(tf(1,L)), 'companion');
-Auf = ss_uf.A';
-Buf = ss_uf.C';
-
-%y filter
-ss_yf = canon(ss(tf(1,L)), 'companion');
-Ayf = ss_yf.A';
-Byf = ss_yf.C';
+%u and y filter
+ss_f = canon(ss(tf(1,L)), 'companion');
+Af = ss_f.A';
+Bf = ss_f.C';
 
 % Reference
 a = a_1;
@@ -73,7 +68,7 @@ y_1       = X_1(:,1);
 ym_1      = X_1(:,3);
 Psi_1     = X_1(:,7:10);
 rho_1     = X_1(:,end);
-tilPsi_1  = Psi_1 - Psis_1.*ones(length(Psi_1),length(Psis_1));
+tilPsi_1  = -Psi_1 + Psis_1.*ones(length(Psi_1),length(Psis_1));
 modPsi_1  = sqrt(sum(Psi_1.^2,2));
 e0_1 =  y_1 - ym_1;
 
@@ -101,15 +96,10 @@ Pm = tf(km,[1 am1 am0]);
 [t1, tn, t2, t2n, L] = find2DOFparameters(P,Pm,A0);
 Psis_2 = 1/t2n*[1 t1 tn t2];
 
-% u filter
-ss_uf = canon(ss(tf(1,L)), 'companion');
-Auf = ss_uf.A';
-Buf = ss_uf.C';
-
-%y filter
-ss_yf = canon(ss(tf(1,L)), 'companion');
-Ayf = ss_yf.A';
-Byf = ss_yf.C';
+%u and y filter
+ss_f = canon(ss(tf(1,L)), 'companion');
+Af = ss_f.A';
+Bf = ss_f.C';
 
 % Reference
 a = a_1;
@@ -142,7 +132,7 @@ y_2       = X_2(:,1);
 ym_2      = X_2(:,3);
 Psi_2     = X_2(:,7:10);
 rho_2     = X_2(:,end);
-tilPsi_2  = Psi_2 - Psis_2.*ones(length(Psi_2),length(Psis_2));
+tilPsi_2  = -Psi_2 + Psis_2.*ones(length(Psi_2),length(Psis_2));
 modPsi_2  = sqrt(sum(Psi_2.^2,2));
 e0_2 =  y_2 - ym_2;
 
@@ -173,15 +163,10 @@ Pm = tf(km,[1 am1 am0]);
 [t1, tn, t2, t2n, L] = find2DOFparameters(P,Pm,A0);
 Psis_2 = 1/t2n*[1 t1 tn t2];
 
-% u filter
-ss_uf = canon(ss(tf(1,L)), 'companion');
-Auf = ss_uf.A';
-Buf = ss_uf.C';
-
-%y filter
-ss_yf = canon(ss(tf(1,L)), 'companion');
-Ayf = ss_yf.A';
-Byf = ss_yf.C';
+%u and y filter
+ss_f = canon(ss(tf(1,L)), 'companion');
+Af = ss_f.A';
+Bf = ss_f.C';
 
 % Reference
 a = a_1;
@@ -214,7 +199,7 @@ y_2       = X_2(:,1);
 ym_2      = X_2(:,3);
 Psi_2     = X_2(:,7:10);
 rho_2     = X_2(:,end);
-tilPsi_2  = Psi_2 - Psis_2.*ones(length(Psi_2),length(Psis_2));
+tilPsi_2  = -Psi_2 + Psis_2.*ones(length(Psi_2),length(Psis_2));
 modPsi_2  = sqrt(sum(Psi_2.^2,2));
 e0_2 =  y_2 - ym_2;
 
@@ -245,15 +230,10 @@ Pm = tf(km,[1 am1 am0]);
 [t1, tn, t2, t2n, L] = find2DOFparameters(P,Pm,A0);
 Psis_2 = 1/t2n*[1 t1 tn t2];
 
-% u filter
-ss_uf = canon(ss(tf(1,L)), 'companion');
-Auf = ss_uf.A';
-Buf = ss_uf.C';
-
-%y filter
-ss_yf = canon(ss(tf(1,L)), 'companion');
-Ayf = ss_yf.A';
-Byf = ss_yf.C';
+%u and y filter
+ss_f = canon(ss(tf(1,L)), 'companion');
+Af = ss_f.A';
+Bf = ss_f.C';
 
 % Reference
 a = a_1;
@@ -286,7 +266,7 @@ y_2       = X_2(:,1);
 ym_2      = X_2(:,3);
 Psi_2     = X_2(:,7:10);
 rho_2     = X_2(:,end);
-tilPsi_2  = Psi_2 - Psis_2.*ones(length(Psi_2),length(Psis_2));
+tilPsi_2  = -Psi_2 + Psis_2.*ones(length(Psi_2),length(Psis_2));
 modPsi_2  = sqrt(sum(Psi_2.^2,2));
 e0_2 =  y_2 - ym_2;
 
@@ -317,15 +297,10 @@ Pm = tf(km,[1 am1 am0]);
 [t1, tn, t2, t2n, L] = find2DOFparameters(P,Pm,A0);
 Psis_2 = 1/t2n*[1 t1 tn t2];
 
-% u filter
-ss_uf = canon(ss(tf(1,L)), 'companion');
-Auf = ss_uf.A';
-Buf = ss_uf.C';
-
-%y filter
-ss_yf = canon(ss(tf(1,L)), 'companion');
-Ayf = ss_yf.A';
-Byf = ss_yf.C';
+%u and y filter
+ss_f = canon(ss(tf(1,L)), 'companion');
+Af = ss_f.A';
+Bf = ss_f.C';
 
 % Reference
 a = a_1;
@@ -358,7 +333,7 @@ y_2       = X_2(:,1);
 ym_2      = X_2(:,3);
 Psi_2     = X_2(:,7:10);
 rho_2     = X_2(:,end);
-tilPsi_2  = Psi_2 - Psis_2.*ones(length(Psi_2),length(Psis_2));
+tilPsi_2  = -Psi_2 + Psis_2.*ones(length(Psi_2),length(Psis_2));
 modPsi_2  = sqrt(sum(Psi_2.^2,2));
 e0_2 =  y_2 - ym_2;
 

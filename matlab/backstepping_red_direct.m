@@ -12,7 +12,7 @@
 
 function dx = backstepping_red_direct(t,x)
 
-global km am1 am0 N c1 c2 d1 d2 Gamma gamma kp a1 a0 a w Auf Buf Ayf Byf e1;
+global km am1 am0 N c1 c2 d1 d2 Gamma gamma kp a1 a0 a w Af Bf e1;
 
 X           = x(1:2); y = e1'*X;
 Xm          = x(3:4); ym = e1'*Xm;
@@ -54,6 +54,7 @@ drho = -gamma*sign(kp/km)*alpha_bar*z1;
 
 %% Axuiliary vars
 beta = -N*v0 + dadz1 * (xi + Omega'*Psi - (am1 + N)*z1) + dadrho*drho + dadxi*dxi + dadOmega_bar*dOmega_bar;
+% beta = -N*v0 + dadz1 * (xi + Omega'*Psi - (am1 + N)*z1) + dadrho*drho + dadxi*dxi;
 
 %% Tuning functions
 tau_1 = (Omega - rho*alpha_bar*[e1;0;0])*z1;
@@ -68,7 +69,7 @@ dX = [-a1 1; -a0 0]*X + [0;kp]*u;
 dXm = [-am1 1;-am0 0]*Xm + [0;km]*r;
 dv0 = N*v0 + km*u;
 dOmega = [dv0 dOmega_bar(2:end)']';
-dw1 = Auf*w1 + Buf*u;
-dw2 = Ayf*w2 + Byf*y;
+dw1 = Af*w1 + Bf*u;
+dw2 = Af*w2 + Bf*y;
 
 dx = [dX' dXm' dw1' dw2' dPsi' dxi' dOmega' drho']';
