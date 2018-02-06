@@ -107,23 +107,23 @@ if PRINT
     print(path_e0,'-depsc2','-painters')
 end
 
-%--------------- Fig3: y -------------
+%--------------- Fig4: y -------------
 figure(4);clf;
 set(gcf,'position',[fig_pos(1:2) fig_pos(3) 2*fig_pos(4)]);
 
 h1 = subplot(211);
-plot(T_1,y_1,T_1,r_1);grid on;
+plot(T_1,y_1,T_1,ym_1);grid on;
 title(strcat('$y$ com~ ', str1));
 
 h2 = subplot(212);
-plot(T_2,y_2,T_2,r_2);grid on;
+plot(T_2,y_2,T_2,ym_2);grid on;
 title(strcat('$y$ com~ ', str2));
 % h2.YLim = h1.YLim;
 
 subplot(211);
-legend('$y$','$r$','Location','SouthEast')
+legend('$y$','$y_m$','Location','SouthEast')
 subplot(212);
-legend('$y$','$r$','Location','SouthEast')
+legend('$y$','$y_m$','Location','SouthEast')
 
 set(gcf,'position',fig_pos);
 
@@ -131,8 +131,8 @@ if PRINT
     print(path_y,'-depsc2','-painters')
 end
 
-%--------------- Fig4: rho -------------
-figure(3);clf;
+%--------------- Fig5: rho -------------
+figure(5);clf;
 set(gcf,'position',fig_pos);
 
 plot(T_1,rho_1);grid;hold on;

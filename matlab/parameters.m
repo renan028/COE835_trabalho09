@@ -30,8 +30,9 @@ am1_1 = 3;
 am0_1 = 2;
 
 %Reference
+dc_1 = 1;
 a_1 = [2 2];
-w_1 = [1 2];
+w_1 = [2 1];
 
 %Initial conditions
 X0_1  = [0 0]';
@@ -45,7 +46,7 @@ rho0_1 = 1;
 
 %Adaptation gain and filter ctes
 N_1 = -1;
-Gamma_1 = 10;
+Gamma_1 = 1;
 gamma_1 = 0.2;
 c1_1 = 1;
 c2_1 = 1;
@@ -65,6 +66,7 @@ am1_2 = 4;
 am0_2 = 4;
 
 %Reference
+dc_2 = 2;
 a_2 = [1 1];
 w_2 = [1 3];
 
@@ -80,7 +82,7 @@ rho0_2 = 1;
 
 %Adaptation gain and filter ctes
 N_2 = -1;
-Gamma_2 = 1;
+Gamma_2 = 10;
 gamma_2 = 1;
 c1_2 = 1;
 c2_2 = 1;

@@ -12,7 +12,7 @@
 
 function dx = backstepping_red_direct(t,x)
 
-global km am1 am0 N c1 c2 d1 d2 Gamma gamma kp a1 a0 a w Af Bf e1;
+global km am1 am0 N c1 c2 d1 d2 Gamma gamma kp a1 a0 dc a w Af Bf e1;
 
 X           = x(1:2); y = e1'*X;
 Xm          = x(3:4); ym = e1'*Xm;
@@ -24,13 +24,15 @@ Omega       = x(12:15);
 rho         = x(16);
 
 %% Input
-r = sum(a.*sin(w*t));
+r = dc + sum(a.*sin(w*t));
 
 %% Output error
 z1 = y - ym;
 
 %% Filters
 dxi = N*xi -(am0 + am1*N + N^2)*z1 - km*r;
+% dxi = N*xi - (am0 + am1*N + N^2)*y - km*r;  %Pizzino
+
 v0 = Omega(1);
 Omega_bar = Omega; Omega_bar(1) = 0;
 dOmega_bar = N*Omega_bar + km*[0; -[w1; y; w2]];
@@ -40,7 +42,7 @@ alpha_bar = (-c1 + d1/N + am1 + N)*z1 - xi - Omega_bar'*Psi;
 alpha = rho * alpha_bar;
 
 % Partial derivatives
-dadz1 = rho * (- c1 + d1/N + am1 + N);
+dadz1 = rho * (-c1 + d1/N + am1 + N);
 dadrho = alpha_bar;
 dadxi = -rho;
 dadPsi = - rho * Omega_bar';
@@ -53,9 +55,12 @@ z2 = v0 - alpha;
 drho = -gamma*sign(kp/km)*alpha_bar*z1;
 
 %% Axuiliary vars
-beta = -N*v0 + dadz1 * (xi + Omega'*Psi - (am1 + N)*z1) + dadrho*drho + dadxi*dxi + dadOmega_bar*dOmega_bar;
-% beta = -N*v0 + dadz1 * (xi + Omega'*Psi - (am1 + N)*z1) + dadrho*drho + dadxi*dxi;
-
+beta = -N*v0 + dadz1 * (xi + Omega'*Psi - (am1 + N)*z1) + dadrho*drho + ...
+       dadxi*dxi + dadOmega_bar*dOmega_bar; %Correct?
+   
+% beta = -N*v0 + dadz1 * (xi + Omega'*Psi - (am1 + N)*z1) + dadrho*drho + ...
+%        dadxi*(N*xi -(am0 + am1*N + N^2)*z1 - km*r); %Pizzino
+   
 %% Tuning functions
 tau_1 = (Omega - rho*alpha_bar*[e1;0;0])*z1;
 tau_2 = tau_1 - z2 * (dadz1 * Omega);
